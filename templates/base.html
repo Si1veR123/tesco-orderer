@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<head>
+    <style>
+        @font-face {
+            font-family: "montserrat";
+            src: url({% static 'montserrat.woff' %}) format("woff");
+        }
+    </style>
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    {% block 'head' %}
+    {% endblock %}
+</head>
+<body>
+    <div id="navbar">
+        <a href="/">Home</a>
+        <a href="/changeaccount">Change account details</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+    <div>
+    {% block 'content' %}
+    {% endblock %}
+    </div>
+</body>
+{% block 'scripts' %}
+{% endblock %}

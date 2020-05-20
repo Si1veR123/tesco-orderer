@@ -1,0 +1,30 @@
+{% load static %}
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'form.css' %}">
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="form-container">
+        <h1 style="font-family: montserrat;">Login</h1>
+        <form method="post" action="">
+            {% csrf_token %}
+            <input name="firstname" type="text" placeholder="First Name">
+            <input name="password" type="password" placeholder="Password">
+            <input class="submit" type="submit" value="Login">
+        </form>
+        <a id="signup-link" href="/signup?next=/">Go to Signup</a>
+        {% if error %}<p style="color: red; font-family: montserrat;">{{ error }}</p>{% endif %}
+    </div>
+</body>
+
+
+{% block 'scripts' %}
+{% endblock %}

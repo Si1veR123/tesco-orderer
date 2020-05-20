@@ -1,0 +1,29 @@
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'form.css' %}">
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="form-container">
+        <h1 style="font-family: montserrat;">Signup</h1>
+        <form method="post" action="">
+            {% csrf_token %}
+            <input name="firstname" type="text" placeholder="First Name" required>
+            <input name="password" type="password" placeholder="Password" required>
+            <input name="email" type="email" placeholder="Tesco Email: example@example.com" required>
+            <input name="tesco-password" type="password" placeholder="Tesco Password" required>
+            <input name="ref" type="text" placeholder="Key" required>
+            <input class="submit" type="submit">
+        </form>
+        <a id="signup-link" href="/login">Go to Login</a>
+        {% if error %}<p style="color: red; font-family: montserrat;">{{ error }}</p>{% endif %}
+    </div>
+</body>
+

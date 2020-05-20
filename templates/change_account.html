@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block 'head' %}
+<title>Change account</title>
+<link rel="stylesheet" href="{% static 'form.css' %}">
+{% endblock %}
+
+{% block 'content' %}
+<div id="form-container">
+    <h1 style="font-family: montserrat;">Change details</h1>
+    <form method="post" action="" autocomplete="off" onsubmit="checkChangeDetails(this);">
+        {% csrf_token %}
+        <input name="firstname" type="text" placeholder="New First Name">
+        <input name="email" type="email" placeholder="New Tesco Email">
+        <input name="tesco-password" type="password" placeholder="New Tesco Password" autocomplete="off">
+        <hr>
+        <input name="password" type="password" placeholder="Password" required style="border:1px solid red;" autocomplete="off">
+        <input class="submit" type="submit">
+    </form>
+    {% if error %}<p style="color: red; font-family: montserrat;">{{ error }}</p>{% endif %}
+    <hr style="border-color: red;">
+    <h1 style="font-family: montserrat;">Change password</h1>
+    <form method="post" action="" autocomplete="off">
+        {% csrf_token %}
+        <input name="newpassword" type="password" placeholder="New Password" required autocomplete="off">
+        <input class="submit" type="submit">
+    </form>
+</div>
+{% endblock %}
+
+{% block 'scripts' %}
+<script>
+    function checkChangeDetails(form) {
+        if (document.getElementsByName('firstname')[0].value || document.getElementsByName('email')[0].value || document.getElementsByName('tesco-password')[0].value) {
+            return true
+        }
+        alert('Fill in at least one of the fields and the password.')
+        return false
+    }
+</script>
+{% endblock %}
