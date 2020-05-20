@@ -1,13 +1,31 @@
 from django.shortcuts import render, redirect, Http404
+from django.http import JsonResponse
 from django.contrib.auth import login, logout, authenticate
 from CustomUser.models import User
+from orders.models import Order
 from django.db.utils import IntegrityError
 from django.conf import settings
 from cryptography.fernet import Fernet
 
 
 def home(r):
-    return render(r, "home.html")
+    orders = Order.objects.filter(creator=r.user.id)
+    return render(r, "home.html", {"orders": orders})
+
+
+def add_slot(r):
+    if r.method != "POST":
+        raise Http404
+
+    min_date = r.POST["min-date"]
+    max_date = r.POST["max-date"]
+    min_time = r.POST["min-time"]
+    max_time = r.POST["max-time"]
+
+    order = Order(min_date=min_date, max_date=max_date, min_time=min_time, max_time=max_time, creator=r.user)
+    order.save()
+
+    return redirect("/")
 
 
 def view_login(r):
@@ -94,3 +112,12 @@ def change_account(r):
                 return render(r, "change_account.html", {"error": "Incorrect password. You can reset it below."})
     else:
         raise Http404
+
+
+def remove_order(r, order):
+    order_object = Order.objects.get(id=order)
+    if order_object.creator_id == r.user.id:
+        order_object.delete()
+        return JsonResponse({"success": "y"})
+    else:
+        return JsonResponse({"success": "n"})

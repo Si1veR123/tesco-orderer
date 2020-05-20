@@ -1,11 +1,54 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block 'head' %}
 <title>Home</title>
+<link rel="stylesheet" href="{% static 'home.css' %}">
 {% endblock %}
 
 {% block 'content' %}
+<div id="content">
+    <div id="pending-slot-container">
+        <h1 style="font-family: montserrat;margin:0;">Your pending slots</h1>
+        {% if orders.count > 0 %}
+            <ul style="margin-right: 2em;">
+                {% for order in orders %}
+                <li>
+                    <p style="font-family: montserrat; font-size: 1.5vh;">
+                        {{ order.min_date }} - {{ order.max_date }}/{{ order.min_time }} - {{ order.max_time }}
+                        <span onclick="removeOrder({{ order.id }}, this)"><svg class="delete-icon" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 16.99 17.05"><rect x="8.88" y="-0.78" width="2.27" height="21.71" transform="translate(-5.69 8.44) rotate(-45)"/><rect x="8.85" y="-0.69" width="2.27" height="21.71" transform="translate(8.61 -5.68) rotate(45)"/></svg></span>
+                    </p>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p style="font-family: montserrat; font-size: 2vh;">No pending slots</p>
+        {% endif %}
+    </div>
+    <div id="slot-book-container">
+        <h1 style="font-family: montserrat;margin:1% 0 2% 0;">Add a slot</h1>
+        <form id="add-slot-form" action="/add/" method="post">
+            {% csrf_token %}
+            <label for="min-date">Min date: </label>
+            <input id="min-date" name="min-date" type="date" required>
+            <br>
+            <label for="min-time">Min time: </label>
+            <input id="min-time" name="min-time" type="time" required>
+            <br>
+            <hr style="margin-bottom: 3vh;">
+            <label for="max-date">Max date: </label>
+            <input id="max-date" name="max-date" type="date" required>
+            <br>
+            <label for="max-time">Max time: </label>
+            <input id="max-time" name="max-time" type="time" required>
+            <br>
+            <input id="add-slot" type="submit" value="Add slot">
+        </form>
+    </div>
+</div>
 {% endblock %}
 
 {% block 'scripts' %}
+<script src="{% static 'removeorder.js' %}"></script>
 {% endblock %}

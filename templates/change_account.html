@@ -10,7 +10,7 @@
 {% block 'content' %}
 <div id="form-container">
     <h1 style="font-family: montserrat;">Change details</h1>
-    <form method="post" action="" autocomplete="off" onsubmit="checkChangeDetails(this);">
+    <form id="form" method="post" action="" autocomplete="off" onsubmit="event.preventDefault(); checkChangeDetails(this)">
         {% csrf_token %}
         <input name="firstname" type="text" placeholder="New First Name">
         <input name="email" type="email" placeholder="New Tesco Email">
@@ -34,7 +34,8 @@
 <script>
     function checkChangeDetails(form) {
         if (document.getElementsByName('firstname')[0].value || document.getElementsByName('email')[0].value || document.getElementsByName('tesco-password')[0].value) {
-            return true
+            form.submit()
+            return
         }
         alert('Fill in at least one of the fields and the password.')
         return false

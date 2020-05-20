@@ -1,0 +1,75 @@
+#content {
+    margin: 8% 0 0 23%;
+    padding: 2%;
+    width: 50%;
+    height: 100%;
+    border-radius: 1em;
+    background-color: rgb(250, 250, 250);
+    box-shadow: 0 0 2vw grey;
+}
+
+@media only screen and (max-width: 1000px) {
+    #content {
+        margin-left: 8%;
+        width: 80%;
+    }
+}
+
+#pending-slot-container {
+    background-color: rgb(240, 240, 240);
+    text-align: center;
+    border-radius: 1em;
+    padding: 2%;
+}
+
+#slot-book-container {
+    margin-top: 3%;
+    background-color: rgb(240, 240, 240);
+    border-radius: 1em;
+    text-align: center;
+    padding: 2%;
+}
+
+#add-slot-form {
+    width: 60%;
+    margin-left: 20%;
+}
+
+#add-slot-form input {
+    width: 50%;
+    margin-bottom: 2vh;
+    font-family: montserrat;
+    border-radius: 0.2em;
+    border-color: grey;
+    border-style: solid;
+}
+
+#add-slot-form input:focus {
+    border-color: lightblue;
+    box-shadow: 0 0 2vh grey;
+}
+
+#add-slot-form label {
+    font-family: montserrat;
+}
+
+@media (max-width: 500px) {
+    #add-slot-form input {
+        width: 100%;
+    }
+}
+
+#add-slot:hover {
+    cursor: pointer;
+}
+
+.delete-icon {
+    height: 1.2vh;
+}
+
+.delete-icon:hover {
+    fill: red;
+    cursor: pointer;
+}
+
+

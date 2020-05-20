@@ -15,7 +15,8 @@
 #form-container input {
     margin-top: 1em;
     margin-bottom: 1em;
-    width: 100%;
+    padding: 1%;
+    width: 98%;
     font-family: montserrat;
     border-radius: 0.5vh;
     border-width: 0.1vh;
@@ -33,5 +34,5 @@
 }
 
 .submit:hover {
-    cursor:hand;
+    cursor: pointer;
 }
