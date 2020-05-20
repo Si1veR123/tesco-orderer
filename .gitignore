@@ -4,6 +4,5 @@
 __pycache__/
 *.log
 *.pot
-static/
 media/
 local_settings.py
