@@ -9,7 +9,7 @@
 
 {% block 'content' %}
 <div id="form-container">
-    <h1 style="font-family: montserrat;">Change details</h1>
+    <h1 style="font-family: montserrat;margin-top: 5vh;">Change details</h1>
     <form id="form" method="post" action="" autocomplete="off" onsubmit="event.preventDefault(); checkChangeDetails(this)">
         {% csrf_token %}
         <input name="firstname" type="text" placeholder="New First Name">

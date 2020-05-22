@@ -5,6 +5,7 @@
 {% block 'head' %}
 <title>Home</title>
 <link rel="stylesheet" href="{% static 'home.css' %}">
+<link rel="stylesheet" href="{% static 'fade.css' %}">
 {% endblock %}
 
 {% block 'content' %}
@@ -45,10 +46,27 @@
             <br>
             <input id="add-slot" type="submit" value="Add slot">
         </form>
+        {% if error %}
+            <p style="font-family: montserrat; color: red;">
+                {% if error == 'date' %}Min date should be less than Max date.
+                {% elif error == 'time' %}Min time should be less than Max time.
+                {% elif error == 'max' %}You have reached the max pending slots.
+                {% endif %}
+            </p>
+        {% endif %}
+    </div>
+    <div id="info-popup">
+        <p style="font-family: montserrat;">
+            Your slot will be booked when it is available.<br>
+            It will be available for 2 hours after booking.<br>
+            You will receive an email when it has been booked.<br>
+        </p>
+        <button style="font-family: montserrat;" onclick="submitAddSlotForm()">Add slot</button>
     </div>
 </div>
 {% endblock %}
 
 {% block 'scripts' %}
 <script src="{% static 'removeorder.js' %}"></script>
+<script src="{% static 'popup.js' %}"></script>
 {% endblock %}

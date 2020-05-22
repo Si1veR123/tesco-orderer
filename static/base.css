@@ -22,11 +22,15 @@ body, html {
 
 #navbar a:hover {
     color: blue;
-    text-shadow: 0 0 1vw grey;
+    text-shadow: 0 0 2vw black;
 }
 
 #logout:hover {
     color: red !important;
+}
+
+#admin:hover {
+    color: lime !important;
 }
 
 #container {

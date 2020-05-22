@@ -122,4 +122,10 @@ MEDIA_URL = '/media/'
 import django_heroku
 django_heroku.settings(locals())
 
-from . local_settings import *
+try:
+    from . local_settings import *
+except ImportError:
+    # running on heroku server, get environment varsR
+    SECRET_KEY = os.environ.get("SECRETKEY")
+    REFERRAL = os.environ.get("REFERRAL")
+    TESCO_PASSWORD_ENCRYPTION = os.environ.get("TPE")

@@ -6,21 +6,53 @@ from orders.models import Order
 from django.db.utils import IntegrityError
 from django.conf import settings
 from cryptography.fernet import Fernet
+import datetime
 
 
 def home(r):
     orders = Order.objects.filter(creator=r.user.id)
-    return render(r, "home.html", {"orders": orders})
+    return render(r, "home.html", {"orders": orders, "admin": r.user.is_staff, "error": r.GET.get("error")})
+
+
+def validate_date_time(min_date, max_date, min_time, max_time):
+    min_date = datetime.datetime.fromisoformat(min_date)
+    max_date = datetime.datetime.fromisoformat(max_date)
+
+    min_time = [int(t) for t in min_time.split(":")]
+    max_time = [int(t) for t in max_time.split(":")]
+
+    min_time = datetime.time(min_time[0], min_time[1])
+    max_time = datetime.time(max_time[0], max_time[1])
+    if min_date < max_date:
+        if min_time < max_time:
+            return True
+        else:
+            return "time"
+    else:
+        return "date"
 
 
 def add_slot(r):
     if r.method != "POST":
         raise Http404
 
+    for val in r.POST:
+        if not val:
+            return redirect("/")
+
+    orders = Order.objects.filter(creator=r.user.id)
+
+    if len(orders) > 1:
+        return redirect("/?error=max")
+
     min_date = r.POST["min-date"]
     max_date = r.POST["max-date"]
     min_time = r.POST["min-time"]
     max_time = r.POST["max-time"]
+
+    valid = validate_date_time(min_date, max_date, min_time, max_time)
+    if valid is not True:
+        return redirect("/?error=" + valid)
 
     order = Order(min_date=min_date, max_date=max_date, min_time=min_time, max_time=max_time, creator=r.user)
     order.save()
@@ -87,12 +119,12 @@ def view_logout(r):
 
 def change_account(r):
     if r.method == "GET":
-        return render(r, "change_account.html")
+        return render(r, "change_account.html", {"admin": r.user.is_staff})
     elif r.method == "POST":
         if r.POST.get("newpassword"):
             r.user.set_password(r.POST["newpassword"])
             r.user.save()
-            return render(r, "change_account.html")
+            return render(r, "change_account.html", {"admin": r.user.is_staff})
         else:
             if r.user.check_password(r.POST.get("password")):
                 new_name = r.POST.get("firstname")
@@ -107,9 +139,9 @@ def change_account(r):
                     new_tesco_pass = key.encrypt(new_tesco_pass.encode("utf-8")).decode("utf-8")
                     r.user.tesco_password = new_tesco_pass
                 r.user.save()
-                return render(r, "change_account.html")
+                return render(r, "change_account.html", {"admin": r.user.is_staff})
             else:
-                return render(r, "change_account.html", {"error": "Incorrect password. You can reset it below."})
+                return render(r, "change_account.html", {"error": "Incorrect password. You can reset it below.", "admin": r.user.is_staff})
     else:
         raise Http404
 

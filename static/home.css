@@ -65,11 +65,35 @@
 
 .delete-icon {
     height: 1.2vh;
+    fill: red;
 }
 
 .delete-icon:hover {
-    fill: red;
     cursor: pointer;
 }
 
+#info-popup {
+    position: absolute;
+    padding: 3vw;
+    border-radius: 2vh;
+    width: 80%;
+    left: calc(10% - 2vh);
+    opacity: 0;
+    display: none;
+    background-color: rgba(240, 240, 240);
+    box-shadow: 0 0 1px 100vmax rgba(0, 0, 0, 0.8);
+    text-align: center;
+    top: 30%;
+}
 
+#info-popup button {
+    font-family: montserrat;
+    border-radius: 0.2em;
+    border-style: solid;
+    border-color: lightblue;
+    box-shadow: 0 0 2vh grey;
+}
+
+#info-popup button:hover {
+    cursor: pointer;
+}

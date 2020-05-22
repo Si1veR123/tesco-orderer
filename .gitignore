@@ -6,3 +6,5 @@ __pycache__/
 *.pot
 media/
 local_settings.py
+*.exe
+BOOKER/
