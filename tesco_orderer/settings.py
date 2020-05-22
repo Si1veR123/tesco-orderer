@@ -125,7 +125,7 @@ django_heroku.settings(locals())
 try:
     from . local_settings import *
 except ImportError:
-    # running on heroku server, get environment varsR
+    # running on heroku server, get environment vars
     SECRET_KEY = os.environ.get("SECRETKEY")
     REFERRAL = os.environ.get("REFERRAL")
     TESCO_PASSWORD_ENCRYPTION = os.environ.get("TPE")

@@ -12,6 +12,7 @@ psycopg2 = "*"
 gunicorn = "*"
 dj-database-url = "*"
 django-heroku = "*"
+cryptography = "*"
 
 [requires]
 python_version = "3.7"
